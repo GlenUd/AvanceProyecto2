@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Ventana">
+  <grid id="27dc6" binding="Principal" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="549" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="a49a2" binding="tabbedPane1" default-binding="true">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <tabbedpane id="764de" binding="tabbedPane2" default-binding="true">
+            <constraints>
+              <tabbedpane title="REGISTRO LIVESHARE"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="cb939" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="DONANTES"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="7f6aa" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="NOMBRE :"/>
+                    </properties>
+                  </component>
+                  <vspacer id="cd1b">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="339f9" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="CEDULA :"/>
+                    </properties>
+                  </component>
+                  <component id="c5c6e" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="EDAD :"/>
+                    </properties>
+                  </component>
+                  <component id="31d37" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="TIPO DE SANGRE"/>
+                    </properties>
+                  </component>
+                  <component id="d8d5b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="CIUDAD"/>
+                    </properties>
+                  </component>
+                  <component id="b8e66" class="javax.swing.JComboBox" binding="cbTipoSandre">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <model>
+                        <item value="A+"/>
+                        <item value=""/>
+                        <item value="A-"/>
+                        <item value=""/>
+                        <item value="B+"/>
+                        <item value=""/>
+                        <item value="B-"/>
+                        <item value=""/>
+                        <item value="AB+"/>
+                        <item value=""/>
+                        <item value="AB-"/>
+                        <item value=""/>
+                        <item value="O+"/>
+                        <item value=""/>
+                        <item value="O-"/>
+                      </model>
+                    </properties>
+                  </component>
+                  <component id="7951" class="javax.swing.JTextField" binding="txtNombre">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="8198e" class="javax.swing.JTextField" binding="txtCedula">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="94283" class="javax.swing.JSpinner" binding="spEdad">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="8aeb0" class="javax.swing.JComboBox" binding="cbCiudad">
+                    <constraints>
+                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <model>
+                        <item value="Ambato"/>
+                        <item value=""/>
+                        <item value="Arajuno"/>
+                        <item value=""/>
+                        <item value="Archidona"/>
+                        <item value=""/>
+                        <item value="Atacames"/>
+                        <item value=""/>
+                        <item value="Atuntaqui"/>
+                        <item value=""/>
+                        <item value="Azogues"/>
+                        <item value=""/>
+                        <item value="Babahoyo"/>
+                        <item value=""/>
+                        <item value="Baeza"/>
+                        <item value=""/>
+                        <item value="Bahía de Caráquez"/>
+                        <item value=""/>
+                        <item value="Balao"/>
+                        <item value=""/>
+                        <item value="Balsas"/>
+                        <item value=""/>
+                        <item value="Balzar"/>
+                        <item value=""/>
+                        <item value="Baños de Agua Santa"/>
+                        <item value=""/>
+                        <item value="Bucay"/>
+                        <item value=""/>
+                        <item value="Calceta"/>
+                        <item value=""/>
+                        <item value="Carlos Julio Arosemena Tola"/>
+                        <item value=""/>
+                        <item value="Catarama"/>
+                        <item value=""/>
+                        <item value="Chone"/>
+                        <item value=""/>
+                        <item value="Coca"/>
+                        <item value=""/>
+                        <item value="Colimes"/>
+                        <item value=""/>
+                        <item value="Coronel Marcelino Maridueña"/>
+                        <item value=""/>
+                        <item value="Cotacachi"/>
+                        <item value=""/>
+                        <item value="Cuenca"/>
+                        <item value=""/>
+                        <item value="Daule"/>
+                        <item value=""/>
+                        <item value="Durán"/>
+                        <item value=""/>
+                        <item value="El Chaco"/>
+                        <item value=""/>
+                        <item value="El Empalme"/>
+                        <item value=""/>
+                        <item value="El Guabo"/>
+                        <item value=""/>
+                        <item value="El Triunfo"/>
+                        <item value=""/>
+                        <item value="Esmeraldas"/>
+                        <item value=""/>
+                        <item value="Gualaquiza"/>
+                        <item value=""/>
+                        <item value="Guaranda"/>
+                        <item value=""/>
+                        <item value="Guayaquil"/>
+                        <item value=""/>
+                        <item value="Huaquillas"/>
+                        <item value=""/>
+                        <item value="Ibarra"/>
+                        <item value=""/>
+                        <item value="Isidro Ayora"/>
+                        <item value=""/>
+                        <item value="Jama"/>
+                        <item value=""/>
+                        <item value="Jujan"/>
+                        <item value=""/>
+                        <item value="La Concordia"/>
+                        <item value=""/>
+                        <item value="La Libertad"/>
+                        <item value=""/>
+                        <item value="Lago Agrio (Nueva Loja)"/>
+                        <item value=""/>
+                        <item value="Latacunga"/>
+                        <item value=""/>
+                        <item value="Limones"/>
+                        <item value=""/>
+                        <item value="Logroño"/>
+                        <item value=""/>
+                        <item value="Loja"/>
+                        <item value=""/>
+                        <item value="Lomas de Sargentillo"/>
+                        <item value=""/>
+                        <item value="Macas"/>
+                        <item value=""/>
+                        <item value="Machala"/>
+                        <item value=""/>
+                        <item value="Manta"/>
+                        <item value=""/>
+                        <item value="Mera"/>
+                        <item value=""/>
+                        <item value="Milagro"/>
+                        <item value=""/>
+                        <item value="Montecristi"/>
+                        <item value=""/>
+                        <item value="Muisne"/>
+                        <item value=""/>
+                        <item value="Naranjal"/>
+                        <item value=""/>
+                        <item value="Nobol"/>
+                        <item value=""/>
+                        <item value="Nuevo Rocafuerte"/>
+                        <item value=""/>
+                        <item value="Otavalo"/>
+                        <item value=""/>
+                        <item value="Paján"/>
+                        <item value=""/>
+                        <item value="Palestina"/>
+                        <item value=""/>
+                        <item value="Palora"/>
+                        <item value=""/>
+                        <item value="Pasaje"/>
+                        <item value=""/>
+                        <item value="Pedernales"/>
+                        <item value=""/>
+                        <item value="Pedro Carbo"/>
+                        <item value=""/>
+                        <item value="Pichincha (ciudad)"/>
+                        <item value=""/>
+                        <item value="Pimampiro"/>
+                        <item value=""/>
+                        <item value="Piñas"/>
+                        <item value=""/>
+                        <item value="Playas"/>
+                        <item value=""/>
+                        <item value="Portovelo"/>
+                        <item value=""/>
+                        <item value="Portoviejo"/>
+                        <item value=""/>
+                        <item value="Puerto Ayora"/>
+                        <item value=""/>
+                        <item value="Puerto Baquerizo Moreno"/>
+                        <item value=""/>
+                        <item value="Puerto El Carmen de Putumayo"/>
+                        <item value=""/>
+                        <item value="Puerto López"/>
+                        <item value=""/>
+                        <item value="Puerto Villamil"/>
+                        <item value=""/>
+                        <item value="Puyo"/>
+                        <item value=""/>
+                        <item value="Quevedo"/>
+                        <item value=""/>
+                        <item value="Quinindé"/>
+                        <item value=""/>
+                        <item value="Quito (capital)"/>
+                        <item value=""/>
+                        <item value="Riobamba"/>
+                        <item value=""/>
+                        <item value="Rioverde"/>
+                        <item value=""/>
+                        <item value="Rocafuerte"/>
+                        <item value=""/>
+                        <item value="San Lorenzo"/>
+                        <item value=""/>
+                        <item value="Santa Elena"/>
+                        <item value=""/>
+                        <item value="Santa Rosa"/>
+                        <item value=""/>
+                        <item value="Santo Domingo"/>
+                        <item value=""/>
+                        <item value="Sucúa"/>
+                        <item value=""/>
+                        <item value="Tena"/>
+                        <item value=""/>
+                        <item value="Tulcán"/>
+                        <item value=""/>
+                        <item value="Zaruma&#9;&#9;"/>
+                      </model>
+                    </properties>
+                  </component>
+                  <component id="9b5ba" class="javax.swing.JButton" binding="btnAgregarDonante">
+                    <constraints>
+                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="AGREGAR DONANTE"/>
+                    </properties>
+                  </component>
+                  <component id="ceb25" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="FECHA :"/>
+                    </properties>
+                  </component>
+                  <component id="38d68" class="javax.swing.JTextField" binding="txtFecha">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                </children>
+              </grid>
+              <grid id="ed9db" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="SOLICITUDES"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="57741" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="TIPO DE SANGRE REQUERIDA"/>
+                    </properties>
+                  </component>
+                  <vspacer id="9e57c">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="33b9" class="javax.swing.JComboBox" binding="cbTipoSolicitud">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <model>
+                        <item value="A+"/>
+                        <item value=""/>
+                        <item value="A-"/>
+                        <item value=""/>
+                        <item value="B+"/>
+                        <item value=""/>
+                        <item value="B-"/>
+                        <item value=""/>
+                        <item value="AB+"/>
+                        <item value=""/>
+                        <item value="AB-"/>
+                        <item value=""/>
+                        <item value="O+"/>
+                        <item value=""/>
+                        <item value="O-"/>
+                      </model>
+                    </properties>
+                  </component>
+                  <component id="e2b6e" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="PRIORIDAD"/>
+                    </properties>
+                  </component>
+                  <component id="80c7e" class="javax.swing.JComboBox" binding="cbPrioridad">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <model>
+                        <item value="Alta"/>
+                        <item value=""/>
+                        <item value="Media"/>
+                        <item value=""/>
+                        <item value="Baja"/>
+                      </model>
+                    </properties>
+                  </component>
+                  <component id="639d9" class="javax.swing.JButton" binding="btnAtenderSolicitud">
+                    <constraints>
+                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="SIGUIENTE"/>
+                    </properties>
+                  </component>
+                  <component id="658b6" class="javax.swing.JButton" binding="btnAgregarSolicitud">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="AGREGAR SOLICITUD"/>
+                    </properties>
+                  </component>
+                  <component id="ac7d1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="NOMBRE DEL PACIENTE :"/>
+                    </properties>
+                  </component>
+                  <component id="b944f" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="FECHA DE INGRESO"/>
+                    </properties>
+                  </component>
+                  <component id="e18ff" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="CEDULA :"/>
+                    </properties>
+                  </component>
+                  <component id="aca32" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="dfd84" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="16453" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </tabbedpane>
+          <grid id="a96da" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="LISTA DE DONANTES"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="94e40" class="javax.swing.JList" binding="lstDonantes">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="6fd3c" class="javax.swing.JButton" binding="btnSangre">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="ORDENAR POR TIPO DE SANGRE"/>
+                </properties>
+              </component>
+              <component id="d9df3" class="javax.swing.JButton" binding="btnCedula">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="ORDENAR POR CEDULA"/>
+                </properties>
+              </component>
+              <component id="c5eb3" class="javax.swing.JButton" binding="btnFecha">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="ORDENAR POR FECHA"/>
+                </properties>
+              </component>
+              <component id="cc413" class="javax.swing.JList" binding="lstSolicitudes">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>

@@ -1,0 +1,170 @@
+import javax.swing.*;
+import java.util.List;
+public class Ventana extends JFrame {
+
+    private JPanel Principal;
+    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPane2;
+    private JTextField txtCedula;
+    private JTextField txtNombre;
+    private JTextField txtFecha;
+    private JComboBox<String> cbTipoSandre;
+    private JSpinner spEdad;
+    private JComboBox<String> cbCiudad;
+    private JButton btnAgregarDonante;
+    private JList<String> lstDonantes;
+    private JComboBox<String> cbTipoSolicitud;
+    private JComboBox<String> cbPrioridad;
+    private JButton btnAgregarSolicitud;
+    private JButton btnAtenderSolicitud;
+    private JList<String> listaSolicitudes;
+    private JList<String> lstSolicitudes;
+    private JButton btnSangre;
+    private JButton btnCedula;
+    private JButton btnFecha;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private DefaultListModel<String> modeloDonantes;
+    private DefaultListModel<String> modeloSolicitudes;
+
+    public Ventana() {
+        setTitle("LiveShare - Red de donación de sangre");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setLocationRelativeTo(null);
+
+        modeloDonantes = new DefaultListModel<>();
+        lstDonantes.setModel(modeloDonantes);
+
+        modeloSolicitudes = new DefaultListModel<>();
+        listaSolicitudes.setModel(modeloSolicitudes);
+        lstSolicitudes.setModel(modeloSolicitudes);
+
+        actualizarListaDonantes();
+        actualizarListaSolicitudes();
+    }
+
+    private void actualizarListaDonantes() {
+        modeloDonantes.clear();
+        List<Donante> lista = Main.getGestorDonantes().obtenerDonantes();
+        for (Donante d : lista) {
+            modeloDonantes.addElement(d.toString());
+        }
+    }
+
+    private void actualizarListaSolicitudes() {
+        modeloSolicitudes.clear();
+        List<SolicitudDonacion> lista = Main.getGestorSolicitudes().obtenerSolicitudes();
+        for (SolicitudDonacion s : lista) {
+            modeloSolicitudes.addElement(s.toString());
+        }
+    }
+
+    private void btnAgregarDonanteActionPerformed(java.awt.event.ActionEvent evt) {
+
+        String nombre = txtNombre.getText();
+        String cedula = txtCedula.getText();
+        int edad= (Integer) spEdad.getValue();
+        String fecha= txtFecha.getText();
+        String tipo= (String) cbTipoSandre.getSelectedItem();
+        String ciudad= (String) cbCiudad.getSelectedItem();
+        if (nombre.isEmpty() || cedula.isEmpty() || fecha.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar Nombre, Cédula y Fecha.",
+                    "Datos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Donante d = new Donante(nombre, cedula, tipo, edad, ciudad, fecha);
+        Main.getGestorDonantes().agregarDonante(d);
+
+        txtNombre.setText("");
+        txtCedula.setText("");
+        txtFecha.setText("");
+
+        actualizarListaDonantes();
+    }
+
+    private void btnAgregarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {
+
+        String tipo= (String) cbTipoSolicitud.getSelectedItem();
+        String prioridad=(String) cbPrioridad.getSelectedItem();
+        String nombrePaciente=textField1.getText().trim();
+        String cedula=textField2.getText().trim();
+        String fechaIngreso=textField3.getText().trim();
+
+        if (nombrePaciente.isEmpty() || cedula.isEmpty() || fechaIngreso.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar Nombre del paciente, Cédula y Fecha de ingreso.",
+                    "Datos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!cedula.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "La cédula solo debe contener números.",
+                    "Cédula inválida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (cedula.length() == 0 || cedula.length() > 10) {
+            JOptionPane.showMessageDialog(null, "Ingrese un número mayor a 0 y de máximo 10 dígitos.",
+                    "Cédula inválida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (Long.parseLong(cedula) <= 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese un número mayor a 0 y de máximo 10 dígitos.",
+                    "Cédula inválida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        SolicitudDonacion s = new SolicitudDonacion(tipo, prioridad, nombrePaciente, cedula, fechaIngreso);
+        Main.getGestorSolicitudes().agregarSolicitud(s);
+        textField1.setText("");
+        textField2.setText("");
+        textField3.setText("");
+        actualizarListaSolicitudes();
+    }
+    private void btnAtenderSolicitudActionPerformed(java.awt.event.ActionEvent evt) {
+        SolicitudDonacion s = Main.getGestorSolicitudes().atenderSiguiente();
+        if (s == null) {
+            JOptionPane.showMessageDialog(null, "No hay solicitudes en la cola.",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        Donante encontrado = Main.getGestorDonantes().buscarCompatiblePorTipo(s.getTipoSangre());
+        if (encontrado != null) {
+            JOptionPane.showMessageDialog(null, "Solicitud atendida con el donante: " + encontrado.getNombre(),
+                    "Solicitud atendida", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró un donante compatible.",
+                    "Sin coincidencias", JOptionPane.WARNING_MESSAGE);
+        }
+
+        actualizarListaSolicitudes();
+    }
+
+    private void btnSangreActionPerformed(java.awt.event.ActionEvent evt) {
+        Main.getGestorDonantes().ordenarPorTipoSangre();
+        actualizarListaDonantes();
+    }
+
+    private void btnCedulaActionPerformed(java.awt.event.ActionEvent evt) {
+        Main.getGestorDonantes().ordenarPorCedula();
+        actualizarListaDonantes();
+    }
+
+    private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {
+        Main.getGestorDonantes().ordenarPorFecha();
+        actualizarListaDonantes();
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Ventana");
+        Ventana v = new Ventana();
+        frame.setContentPane(v.Principal);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}
