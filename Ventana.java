@@ -15,7 +15,7 @@ public class Ventana extends JFrame {
     private JList<String> lstDonantes;
     private JComboBox<String> cbTipoSolicitud;
     private JComboBox<String> cbPrioridad;
-    private JButton btnAgregarSolicitud;
+    private JButton btnAgregarSolicitudActionPerformed;
     private JButton btnAtenderSolicitud;
     private JList<String> listaSolicitudes;
     private JList<String> lstSolicitudes;
