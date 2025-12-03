@@ -47,4 +47,24 @@ public class GestorDonantes {
         Collections.sort(donantes,
                 Comparator.comparing(Donante::getFecha));
     }
+
+    public boolean esCompatible(String donante, String receptor) {
+
+        switch (receptor) {
+            case "O-": return donante.equals("O-");
+            case "O+": return donante.equals("O-") || donante.equals("O+");
+            case "A-": return donante.equals("A-") || donante.equals("O-");
+            case "A+": return donante.equals("A+") || donante.equals("A-")
+                    || donante.equals("O+") || donante.equals("O-");
+            case "B-": return donante.equals("B-") || donante.equals("O-");
+            case "B+": return donante.equals("B+") || donante.equals("B-")
+                    || donante.equals("O+") || donante.equals("O-");
+            case "AB-": return donante.equals("AB-") || donante.equals("A-")
+                    || donante.equals("B-") || donante.equals("O-");
+            case "AB+": return true; // recibe de todos
+        }
+
+        return false;
+    }
+
 }

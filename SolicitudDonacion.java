@@ -40,6 +40,23 @@ public class SolicitudDonacion {
         return fechaIngreso;
     }
 
+    public void setTipoSangre(String tipoSangre) {
+        this.tipoSangre = tipoSangre;
+    }
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
+    }
+    public void setCedulaPaciente(String cedulaPaciente) {
+        this.cedulaPaciente = cedulaPaciente;
+    }
+    public void setFechaIngreso(String fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+
     @Override
     public String toString() {
         String base = "Tipo: " + tipoSangre + " | Prioridad: " + prioridad;

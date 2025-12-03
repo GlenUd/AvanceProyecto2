@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Ventana extends JFrame {
@@ -26,9 +27,12 @@ public class Ventana extends JFrame {
     private JButton btnSangre;
     private JButton btnCedula;
     private JButton btnFecha;
+    private JButton btnEditarSolicitud;
+    private JButton btnBuscarTipoSangre;
     private JButton btnEliminar;
     private DefaultListModel<String> modeloDonantes;
     private DefaultListModel<String> modeloSolicitudes;
+    private int solicitudEditando = -1;
 
     public Ventana() {
         setTitle("LiveShare - Red de donación de sangre");
@@ -69,6 +73,117 @@ public class Ventana extends JFrame {
 
         if (btnFecha != null)
             btnFecha.addActionListener(this::btnFechaActionPerformed);
+
+
+        btnEditarSolicitud.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (solicitudEditando == -1) {
+
+                    int index = listaSolicitudes.getSelectedIndex(); // ← ESTA ES LA LISTA VISIBLE
+
+                    if (index == -1) {
+                        JOptionPane.showMessageDialog(null,
+                                "Seleccione una solicitud para editar.",
+                                "Sin selección",
+                                JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    solicitudEditando = index;
+
+                    // Obtener solicitud desde el gestor
+                    SolicitudDonacion s =
+                            Main.getGestorSolicitudes().obtenerSolicitudes().get(index);
+
+                    // Cargar los datos EN TU FORMULARIO REAL
+                    textField1.setText(s.getNombrePaciente());
+                    textField2.setText(s.getCedulaPaciente());
+                    textField3.setText(s.getFechaIngreso());
+
+                    cbTipoSolicitud.setSelectedItem(s.getTipoSangre());
+                    cbPrioridad.setSelectedItem(s.getPrioridad());
+
+                    JOptionPane.showMessageDialog(null,
+                            "Modo edición activado.\nModifique los datos y vuelva a presionar EDITAR SOLICITUD para guardar.",
+                            "Edición iniciada",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    return; // fase 1 termina
+                }
+
+                // =====================================================
+                // FASE 2 → Guardar los cambios
+                // =====================================================
+                SolicitudDonacion s =
+                        Main.getGestorSolicitudes().obtenerSolicitudes().get(solicitudEditando);
+
+                // Guardar los datos modificados
+                s.setNombrePaciente(textField1.getText().trim());
+                s.setCedulaPaciente(textField2.getText().trim());
+                s.setFechaIngreso(textField3.getText().trim());
+                s.setTipoSangre((String) cbTipoSolicitud.getSelectedItem());
+                s.setPrioridad((String) cbPrioridad.getSelectedItem());
+
+                actualizarListaSolicitudes();
+
+                JOptionPane.showMessageDialog(null,
+                        "La solicitud ha sido actualizada correctamente.",
+                        "Edición completada",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                solicitudEditando = -1;  // salir del modo edición
+            }
+        });
+        btnBuscarTipoSangre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = listaSolicitudes.getSelectedIndex();
+
+                if (index == -1) {
+                    JOptionPane.showMessageDialog(null,
+                            "Seleccione una solicitud para verificar compatibilidad.",
+                            "Sin selección",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                // Obtener la solicitud seleccionada
+                SolicitudDonacion s = Main.getGestorSolicitudes()
+                        .obtenerSolicitudes().get(index);
+
+                String tipoReceptor = s.getTipoSangre();
+
+                // Buscar donantes compatibles
+                List<Donante> lista = Main.getGestorDonantes().obtenerDonantes();
+                StringBuilder compatibles = new StringBuilder();
+
+                int contador = 0;
+                for (Donante d : lista) {
+                    if (Main.getGestorDonantes().esCompatible(d.getTipoSangre(), tipoReceptor)) {
+                        contador++;
+                        compatibles.append("• ").append(d.getNombre())
+                                .append(" | Tipo: ").append(d.getTipoSangre())
+                                .append("\n");
+                    }
+                }
+
+                if (contador == 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "No existen donantes compatibles para el tipo solicitado: " + tipoReceptor,
+                            "Sin compatibilidad",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(null,
+                        "Donantes compatibles con " + tipoReceptor + ":\n\n" +
+                                compatibles.toString() +
+                                "\nTotal: " + contador,
+                        "Compatibilidad encontrada",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
     public JPanel getPrincipalPanel() {
