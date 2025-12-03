@@ -189,11 +189,6 @@
                       <text value="TIPO DE SANGRE REQUERIDA"/>
                     </properties>
                   </component>
-                  <vspacer id="9e57c">
-                    <constraints>
-                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                  </vspacer>
                   <component id="33b9" class="javax.swing.JComboBox" binding="cbTipoSolicitud">
                     <constraints>
                       <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
@@ -304,14 +299,6 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="d8e10" class="javax.swing.JList" binding="listaSolicitudes">
-                    <constraints>
-                      <grid row="6" column="1" row-span="3" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="50"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="5faab" class="javax.swing.JButton" binding="btnEditarSolicitud">
                     <constraints>
                       <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -327,6 +314,31 @@
                     <properties>
                       <text value="TIPO DE SANGRE"/>
                     </properties>
+                  </component>
+                  <component id="fe27e" class="javax.swing.JComboBox" binding="cboFiltrarSangre">
+                    <constraints>
+                      <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <model>
+                        <item value="O-"/>
+                        <item value="O+"/>
+                        <item value="A-"/>
+                        <item value="A+"/>
+                        <item value="B-"/>
+                        <item value="B+"/>
+                        <item value="AB-"/>
+                        <item value="AB+"/>
+                      </model>
+                    </properties>
+                  </component>
+                  <component id="d8e10" class="javax.swing.JList" binding="listaSolicitudes">
+                    <constraints>
+                      <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="50"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
                   </component>
                 </children>
               </grid>

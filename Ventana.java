@@ -29,6 +29,7 @@ public class Ventana extends JFrame {
     private JButton btnFecha;
     private JButton btnEditarSolicitud;
     private JButton btnBuscarTipoSangre;
+    private JComboBox cboFiltrarSangre;
     private JButton btnEliminar;
     private DefaultListModel<String> modeloDonantes;
     private DefaultListModel<String> modeloSolicitudes;
@@ -79,7 +80,6 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (solicitudEditando == -1) {
-
                     int index = listaSolicitudes.getSelectedIndex(); // ← ESTA ES LA LISTA VISIBLE
 
                     if (index == -1) {
@@ -92,7 +92,6 @@ public class Ventana extends JFrame {
 
                     solicitudEditando = index;
 
-                    // Obtener solicitud desde el gestor
                     SolicitudDonacion s =
                             Main.getGestorSolicitudes().obtenerSolicitudes().get(index);
 
@@ -109,12 +108,10 @@ public class Ventana extends JFrame {
                             "Edición iniciada",
                             JOptionPane.INFORMATION_MESSAGE);
 
-                    return; // fase 1 termina
+                    return;
                 }
 
-                // =====================================================
-                // FASE 2 → Guardar los cambios
-                // =====================================================
+
                 SolicitudDonacion s =
                         Main.getGestorSolicitudes().obtenerSolicitudes().get(solicitudEditando);
 
@@ -132,37 +129,33 @@ public class Ventana extends JFrame {
                         "Edición completada",
                         JOptionPane.INFORMATION_MESSAGE);
 
-                solicitudEditando = -1;  // salir del modo edición
+                solicitudEditando = -1;
             }
         });
         btnBuscarTipoSangre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = listaSolicitudes.getSelectedIndex();
+                String tipoReceptor = (String) cboFiltrarSangre.getSelectedItem();
 
-                if (index == -1) {
+                if (tipoReceptor == null || tipoReceptor.isEmpty()) {
                     JOptionPane.showMessageDialog(null,
-                            "Seleccione una solicitud para verificar compatibilidad.",
-                            "Sin selección",
+                            "Seleccione un tipo de sangre en el filtro.",
+                            "Error",
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                // Obtener la solicitud seleccionada
-                SolicitudDonacion s = Main.getGestorSolicitudes()
-                        .obtenerSolicitudes().get(index);
-
-                String tipoReceptor = s.getTipoSangre();
-
-                // Buscar donantes compatibles
                 List<Donante> lista = Main.getGestorDonantes().obtenerDonantes();
                 StringBuilder compatibles = new StringBuilder();
 
                 int contador = 0;
+
                 for (Donante d : lista) {
                     if (Main.getGestorDonantes().esCompatible(d.getTipoSangre(), tipoReceptor)) {
                         contador++;
-                        compatibles.append("• ").append(d.getNombre())
+                        compatibles.append("• ")
+                                .append(d.getNombre())
+                                .append(" | Cédula: ").append(d.getCedula())
                                 .append(" | Tipo: ").append(d.getTipoSangre())
                                 .append("\n");
                     }
@@ -170,8 +163,8 @@ public class Ventana extends JFrame {
 
                 if (contador == 0) {
                     JOptionPane.showMessageDialog(null,
-                            "No existen donantes compatibles para el tipo solicitado: " + tipoReceptor,
-                            "Sin compatibilidad",
+                            "No existen donantes compatibles con " + tipoReceptor,
+                            "Sin compatibles",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
@@ -179,8 +172,8 @@ public class Ventana extends JFrame {
                 JOptionPane.showMessageDialog(null,
                         "Donantes compatibles con " + tipoReceptor + ":\n\n" +
                                 compatibles.toString() +
-                                "\nTotal: " + contador,
-                        "Compatibilidad encontrada",
+                                "\nTotal encontrados: " + contador,
+                        "Compatibilidad",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         });
