@@ -30,10 +30,29 @@ public class Ventana extends JFrame {
     private JButton btnEditarSolicitud;
     private JButton btnBuscarTipoSangre;
     private JComboBox cboFiltrarSangre;
+    private JButton btnReporteDonantesPorTipo;
+    private JTextArea textAreaReporte;
+    private JButton btnExportarReporte;
+    private JButton btnFiltrado;
     private JButton btnEliminar;
     private DefaultListModel<String> modeloDonantes;
     private DefaultListModel<String> modeloSolicitudes;
     private int solicitudEditando = -1;
+    private String normalizarTexto(String texto) {
+
+        if (texto == null) {
+            return "";
+        }
+        //transforma el nombre a minusculas para evitar duplicado de nombres con cambios minimos
+        texto = texto.toLowerCase();
+        texto = texto.replace("á", "a");
+        texto = texto.replace("é", "e");
+        texto = texto.replace("í", "i");
+        texto = texto.replace("ó", "o");
+        texto = texto.replace("ú", "u");
+        texto = texto.trim();          // quita espacios al inicio y al final
+        return texto;
+    }
 
     public Ventana() {
         setTitle("LiveShare - Red de donación de sangre");
@@ -177,6 +196,115 @@ public class Ventana extends JFrame {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         });
+        btnReporteDonantesPorTipo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<Donante> lista = Main.getGestorDonantes().obtenerDonantes();
+
+                int oPos=0,oNeg=0,aPos=0,aNeg=0,bPos=0,bNeg=0,abPos=0,abNeg=0;
+
+                for (Donante d : lista) {
+                    String t = d.getTipoSangre();
+                    if ("O+".equals(t)) oPos++;
+                    else if ("O-".equals(t)) oNeg++;
+                    else if ("A+".equals(t)) aPos++;
+                    else if ("A-".equals(t)) aNeg++;
+                    else if ("B+".equals(t)) bPos++;
+                    else if ("B-".equals(t)) bNeg++;
+                    else if ("AB+".equals(t)) abPos++;
+                    else if ("AB-".equals(t)) abNeg++;
+                }
+
+                String reporte =
+                        "REPORTE: Donantes por tipo de sangre\n\n" +
+                                "O+  : " + oPos  + "\n" +
+                                "O-  : " + oNeg  + "\n" +
+                                "A+  : " + aPos  + "\n" +
+                                "A-  : " + aNeg  + "\n" +
+                                "B+  : " + bPos  + "\n" +
+                                "B-  : " + bNeg  + "\n" +
+                                "AB+ : " + abPos + "\n" +
+                                "AB- : " + abNeg + "\n";
+
+                textAreaReporte.setText(reporte);
+            }
+        });
+        btnExportarReporte.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String contenido = textAreaReporte.getText();
+
+                if (contenido == null || contenido.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "No hay ningún reporte para exportar.",
+                            "Exportar reporte",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                JFileChooser chooser = new JFileChooser();
+                chooser.setDialogTitle("Guardar reporte");
+                chooser.setSelectedFile(new java.io.File("reporte_donantes.txt"));
+
+                int opcion = chooser.showSaveDialog(null);
+
+                if (opcion != JFileChooser.APPROVE_OPTION) {
+                    return; // el usuario canceló
+                }
+
+                java.io.File archivo = chooser.getSelectedFile();
+
+                // Asegurar extensión .txt
+                if (!archivo.getName().toLowerCase().endsWith(".txt")) {
+                    archivo = new java.io.File(archivo.getAbsolutePath() + ".txt");
+                }
+
+                try (java.io.FileWriter writer = new java.io.FileWriter(archivo)) {
+
+                    writer.write(contenido);
+
+                    JOptionPane.showMessageDialog(null,
+                            "Reporte exportado correctamente.\n\nRuta:\n" + archivo.getAbsolutePath(),
+                            "Exportación exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error al exportar el reporte:\n" + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        btnFiltrado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tipoRequerido = (String) cboFiltrarSangre.getSelectedItem();
+
+                if (tipoRequerido == null || tipoRequerido.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "Seleccione un tipo de sangre.",
+                            "Filtro", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                List<Donante> lista = Main.getGestorDonantes().obtenerDonantes();
+                int contador = 0;
+
+                for (Donante d : lista) {
+                    if (tipoRequerido.equalsIgnoreCase(d.getTipoSangre())) {
+                        contador++;
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null,
+                        "Tipo requerido: " + tipoRequerido + "\n" +
+                                "Donantes disponibles: " + contador,
+                        "Resultado del filtrado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
     public JPanel getPrincipalPanel() {
@@ -199,29 +327,79 @@ public class Ventana extends JFrame {
         }
     }
 
-
     private void btnAgregarDonanteActionPerformed(ActionEvent evt) {
 
-        String nombre = txtNombre.getText();
-        String cedula = txtCedula.getText();
-        int    edad   = (Integer) spEdad.getValue();
-        String fecha  = txtFecha.getText();
-        String tipo   = (String) cbTipoSandre.getSelectedItem();
+        String nombre = txtNombre.getText().trim();
+        String cedula = txtCedula.getText().trim();
+        int edad = (Integer) spEdad.getValue();
+        String fecha = txtFecha.getText().trim();
+        String tipo = (String) cbTipoSandre.getSelectedItem();
         String ciudad = (String) cbCiudad.getSelectedItem();
 
+        // validacion de registro completo de donantes nuevos
         if (nombre.isEmpty() || cedula.isEmpty() || fecha.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Debe ingresar Nombre, Cédula y Fecha.",
-                    "Datos incompletos", JOptionPane.WARNING_MESSAGE);
+                    "Datos incompletos",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Donante d = new Donante(nombre, cedula, tipo, edad, ciudad, fecha);
-        Main.getGestorDonantes().agregarDonante(d);
+
+        // Antiduplicado completo
+        List<Donante> lista = Main.getGestorDonantes().obtenerDonantes();
+        String nombreNormalizado = normalizarTexto(nombre);
+        for (Donante d : lista) {
+            String nombreExistenteNormalizado = normalizarTexto(d.getNombre());
+
+            // antiduplicado mismo nombre y distinta cedula
+            if (nombreExistenteNormalizado.equals(nombreNormalizado)
+                    && !d.getCedula().equals(cedula)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Esta persona ya está registrada con otra cédula.",
+                        "Registro duplicado",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // antiduplicado distinto nombre y misma cedula
+            if (!nombreExistenteNormalizado.equals(nombreNormalizado)
+                    && d.getCedula().equals(cedula)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "La cédula ingresada ya pertenece a otra persona registrada.",
+                        "Registro duplicado",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // antiduplicado mismo nombre y misma cedula
+            if (nombreExistenteNormalizado.equals(nombreNormalizado)
+                    && d.getCedula().equals(cedula)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Este donante ya se encuentra registrado.",
+                        "Registro duplicado",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+
+        // Registro de donantes nuevos
+        Donante nuevo = new Donante(nombre, cedula, tipo, edad, ciudad, fecha);
+        Main.getGestorDonantes().agregarDonante(nuevo);
+
+        // Limpieza de la seccion de donantes
         txtNombre.setText("");
         txtCedula.setText("");
         txtFecha.setText("");
+        spEdad.setValue(0);
+
         actualizarListaDonantes();
     }
+
+
+
 
     private void btnAgregarSolicitudActionPerformed(ActionEvent evt) {
         String tipo          = (String) cbTipoSolicitud.getSelectedItem();
