@@ -20,42 +20,17 @@ public class SolicitudDonacion {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public String getTipoSangre() {
-        return tipoSangre;
-    }
+    public String getTipoSangre() { return tipoSangre; }
+    public String getPrioridad() { return prioridad; }
+    public String getNombrePaciente() { return nombrePaciente; }
+    public String getCedulaPaciente() { return cedulaPaciente; }
+    public String getFechaIngreso() { return fechaIngreso; }
 
-    public String getPrioridad() {
-        return prioridad;
-    }
-
-    public String getNombrePaciente() {
-        return nombrePaciente;
-    }
-
-    public String getCedulaPaciente() {
-        return cedulaPaciente;
-    }
-
-    public String getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setTipoSangre(String tipoSangre) {
-        this.tipoSangre = tipoSangre;
-    }
-    public void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
-    }
-    public void setNombrePaciente(String nombrePaciente) {
-        this.nombrePaciente = nombrePaciente;
-    }
-    public void setCedulaPaciente(String cedulaPaciente) {
-        this.cedulaPaciente = cedulaPaciente;
-    }
-    public void setFechaIngreso(String fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
+    public void setTipoSangre(String tipoSangre) { this.tipoSangre = tipoSangre; }
+    public void setPrioridad(String prioridad) { this.prioridad = prioridad; }
+    public void setNombrePaciente(String nombrePaciente) { this.nombrePaciente = nombrePaciente; }
+    public void setCedulaPaciente(String cedulaPaciente) { this.cedulaPaciente = cedulaPaciente; }
+    public void setFechaIngreso(String fechaIngreso) { this.fechaIngreso = fechaIngreso; }
 
     @Override
     public String toString() {
@@ -63,7 +38,7 @@ public class SolicitudDonacion {
         if (nombrePaciente == null || nombrePaciente.isEmpty()) {
             return base;
         }
-        return nombrePaciente + " | Cédula: " + cedulaPaciente + " | " +
-                base + " | Fecha: " + fechaIngreso;
+        return nombrePaciente + " | Cédula: " + cedulaPaciente + " | " + base + " | Fecha: " + fechaIngreso;
     }
 }
+

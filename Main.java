@@ -10,6 +10,4 @@ public class Main {
     public static GestorSolicitudes getGestorSolicitudes() {
         return gestorSolicitudes;
     }
-
-
 }
